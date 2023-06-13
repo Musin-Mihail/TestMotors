@@ -1,0 +1,3 @@
+<div class="board" *ngIf="indent" [style.height]="heightPx" [style.width]="halfBoard()"></div>
+<div class="board" *ngFor="let n of countBoard()" [style.width]="widthPx" [style.height]="heightPx"></div>
+<div class="board" [style.height]="heightPx" [style.width]="remainderPx"></div>

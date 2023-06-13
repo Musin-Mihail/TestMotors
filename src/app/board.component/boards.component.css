@@ -1,0 +1,9 @@
+:host {
+  display: flex;
+}
+
+.board {
+  background: white;
+  border-radius: 2px;
+  box-shadow: 0 0 3px gray inset;
+}

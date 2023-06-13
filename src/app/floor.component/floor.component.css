@@ -1,0 +1,7 @@
+.floor {
+  background: black;
+  display: flex;
+  flex-wrap: nowrap;
+  align-content: flex-start;
+  flex-direction: column;
+}

@@ -1,0 +1,11 @@
+<div class="floor" [style.width]="floorWidth + '.px'" [style.height]="floorHeight + '.px'">
+  <div *ngFor="let n of boardLines">
+    <board-component
+      [indent]="n.indent"
+      [width]="n.width"
+      [height]="n.height"
+      [remainder]="n.remainder"
+      [count]="n.count">
+    </board-component>
+  </div>
+</div>

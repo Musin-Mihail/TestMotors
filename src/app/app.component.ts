@@ -6,5 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Test';
+  floorWidth = 500;
+  floorHeight = 500;
+  boardWidth = 90;
+  boardHeight = 40;
 }
