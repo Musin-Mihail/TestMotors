@@ -5,7 +5,9 @@
       [width]="n.width"
       [height]="n.height"
       [remainder]="n.remainder"
-      [count]="n.count">
+      [count]="n.count"
+      (redEmit)=redEmit.emit($event)
+      (greenEmit)=greenEmit.emit($event)>
     </board-component>
   </div>
 </div>

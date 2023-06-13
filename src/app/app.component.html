@@ -18,5 +18,7 @@
   [floorWidth]="floorWidth"
   [floorHeight]="floorHeight"
   [boardWidth]="boardWidth"
-  [boardHeight]="boardHeight">
+  [boardHeight]="boardHeight"
+  (redEmit)=saveRed($event)
+  (greenEmit)=saveGreen($event)>
 </floor-component>

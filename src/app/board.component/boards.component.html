@@ -1,3 +1,3 @@
-<div class="board" *ngIf="indent" [style.height]="heightPx" [style.width]="halfBoard()"></div>
-<div class="board" *ngFor="let n of countBoard()" [style.width]="widthPx" [style.height]="heightPx"></div>
-<div class="board" [style.height]="heightPx" [style.width]="remainderPx"></div>
+<div class="board" *ngIf="indent" [style.height]="heightPx" [style.width]="halfBoard" [style.background]=colors[0]></div>
+<div class="board" *ngFor="let n of countBoard(); let i = index" [style.width]="widthPx" [style.height]="heightPx" [style.background]=colors[i+1]></div>
+<div class="board" [style.height]="heightPx" [style.width]="remainderPx" [style.background]=colors[count]></div>

@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { IBoardModel } from "../models/board";
 
 @Component({
@@ -11,7 +11,8 @@ export class FloorComponent implements OnChanges {
   @Input() floorHeight = 0;
   @Input() boardWidth = 0;
   @Input() boardHeight = 0;
-
+  @Output() redEmit = new EventEmitter<number>();
+  @Output() greenEmit = new EventEmitter<number>();
   boardLines: IBoardModel[] = [];
 
   ngOnChanges(changes: SimpleChanges): void {
