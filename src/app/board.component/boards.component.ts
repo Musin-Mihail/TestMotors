@@ -16,74 +16,53 @@ export class BoardsComponent implements OnChanges {
   colors: string[] = [];
 
   ngOnChanges(changes: SimpleChanges): void {
-    const random = Math.random();
     const {floorWidth, floorHeight} = changes;
-    if (floorWidth && floorWidth.currentValue) {
-      this.width = floorWidth.currentValue;
-    }
-    if (floorHeight && floorHeight.currentValue) {
-      this.height = floorHeight.currentValue;
-    }
-    this.pushColor(random);
+    this.width = floorWidth?.currentValue ?? this.width;
+    this.height = floorHeight?.currentValue ?? this.height;
+    this.pushColor();
   }
 
-  pushColor(random: number) {
-    for (let i = 0; i < this.count + 2; i++) {
-      this.colors.push(this.randomColor(i, random));
-    }
-    console.log(this.indent, this.colors, random);
+  pushColor() {
+    this.colors = Array.from({length: this.count + 2}, (v, i) => this.randomColor(i));
+  }
+
+  px(value: number) {
+    return value + ".px";
   }
 
   get widthPx() {
-    return this.width + ".px";
+    return this.px(this.width);
   }
 
   get heightPx() {
-    return this.height + ".px";
+    return this.px(this.height);
   }
 
   get remainderPx() {
-    return this.remainder + ".px";
+    return this.px(this.remainder);
   }
 
   get halfBoard() {
-    return Math.floor(Number(this.width) / 2) + ".px";
+    return this.px(Math.floor(Number(this.width) / 2));
   }
 
   countBoard() {
     return new Array(this.count)
   }
 
-  randomColor(index: number, random: number) {
-    if (Math.random() > 0.5) {
-      this.areaCalculation(true, index, random);
-      return "red";
-    } else {
-      this.areaCalculation(false, index, random);
-      return "green";
-    }
+  randomColor(index: number) {
+    const color = Math.random() > 0.5 ? "red" : "green";
+    this.areaCalculation(color === "red", index);
+    return color;
   }
 
-  areaCalculation(color: boolean, index: number, random: number) {
+  areaCalculation(color: boolean, index: number) {
     const areaOneBoard = this.width * this.height;
-    console.log("index ", index, this.indent, this.count, random)
     let area = 0;
-    if (index === 0 && this.indent) {
-      area += areaOneBoard / 2;
-    } else if (index === this.count + 1) {
-      const remainderArea = this.remainder * this.height
-      area += remainderArea;
-      console.log("ADD remainderArea", color, remainderArea, random);
-    } else if (index > 0) {
-      area += areaOneBoard;
-      console.log("ADD areaOneBoard", color, random);
-    }
-    if (color) {
-      console.log("area red", area, random);
-      this.redEmit.emit(area);
-    } else {
-      console.log("area green", area, random);
-      this.greenEmit.emit(area);
-    }
+    const isIndent = index === 0 && this.indent;
+    const isRemainder = index === this.count + 1;
+    const isNormal = index > 0;
+    area += isIndent ? areaOneBoard / 2 : isRemainder ? this.remainder * this.height : isNormal ? areaOneBoard : 0;
+    color ? this.redEmit.emit(area) : this.greenEmit.emit(area);
   }
 }

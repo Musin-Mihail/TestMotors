@@ -40,10 +40,7 @@ export class AppComponent {
 
   boardArea() {
     const value = this.boardWidth * this.boardHeight;
-    if (value != 0) {
-      return value;
-    }
-    return 1;
+    return value != 0 ? value : 1;
   }
 
   get numberRedBoards() {
