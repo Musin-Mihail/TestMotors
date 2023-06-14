@@ -13,10 +13,12 @@ export class FloorComponent implements OnChanges {
   @Input() boardHeight = 0;
   @Output() redEmit = new EventEmitter<number>();
   @Output() greenEmit = new EventEmitter<number>();
+  @Output() reset = new EventEmitter();
   boardLines: IBoardModel[] = [];
 
   ngOnChanges(changes: SimpleChanges): void {
     const {floorWidth, floorHeight, boardWidth, boardHeight} = changes;
+    this.reset.emit();
     if (floorWidth && floorWidth.currentValue) {
       this.floorWidth = floorWidth.currentValue;
     }

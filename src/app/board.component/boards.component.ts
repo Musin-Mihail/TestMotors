@@ -16,6 +16,7 @@ export class BoardsComponent implements OnChanges {
   colors: string[] = [];
 
   ngOnChanges(changes: SimpleChanges): void {
+    const random = Math.random();
     const {floorWidth, floorHeight} = changes;
     if (floorWidth && floorWidth.currentValue) {
       this.width = floorWidth.currentValue;
@@ -23,9 +24,14 @@ export class BoardsComponent implements OnChanges {
     if (floorHeight && floorHeight.currentValue) {
       this.height = floorHeight.currentValue;
     }
-    for (let i = 0; i < this.count + (this.indent ? 2 : 1); i++) {
-      this.colors.push(this.randomColor(i));
+    this.pushColor(random);
+  }
+
+  pushColor(random: number) {
+    for (let i = 0; i < this.count + 2; i++) {
+      this.colors.push(this.randomColor(i, random));
     }
+    console.log(this.indent, this.colors, random);
   }
 
   get widthPx() {
@@ -48,30 +54,35 @@ export class BoardsComponent implements OnChanges {
     return new Array(this.count)
   }
 
-  randomColor(index: number) {
+  randomColor(index: number, random: number) {
     if (Math.random() > 0.5) {
-      this.areaCalculation(true, index);
+      this.areaCalculation(true, index, random);
       return "red";
     } else {
-      this.areaCalculation(false, index);
+      this.areaCalculation(false, index, random);
       return "green";
     }
   }
 
-  areaCalculation(color: boolean, index: number) {
-    const boardAreaOne = this.width * this.height;
+  areaCalculation(color: boolean, index: number, random: number) {
+    const areaOneBoard = this.width * this.height;
+    console.log("index ", index, this.indent, this.count, random)
     let area = 0;
     if (index === 0 && this.indent) {
-      area += boardAreaOne / 2;
-    } else if (index === this.count) {
+      area += areaOneBoard / 2;
+    } else if (index === this.count + 1) {
       const remainderArea = this.remainder * this.height
       area += remainderArea;
-    } else {
-      area += boardAreaOne;
+      console.log("ADD remainderArea", color, remainderArea, random);
+    } else if (index > 0) {
+      area += areaOneBoard;
+      console.log("ADD areaOneBoard", color, random);
     }
     if (color) {
+      console.log("area red", area, random);
       this.redEmit.emit(area);
     } else {
+      console.log("area green", area, random);
       this.greenEmit.emit(area);
     }
   }

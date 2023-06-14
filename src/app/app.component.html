@@ -14,11 +14,16 @@
   <div class="text">Длинна доски (минимум 20)</div>
   <input type="number" [(ngModel)]="boardHeight" min=20>
 </div>
+<div class="text">Площадь пола - {{floorArea}}</div>
+<div class="text">Площадь доски - {{boardArea()}}</div>
+<div class="text">Количество красных досок - {{numberRedBoards}}</div>
+<div class="text">Количество зелёных досок - {{numberGreenBoards}}</div>
 <floor-component
   [floorWidth]="floorWidth"
   [floorHeight]="floorHeight"
   [boardWidth]="boardWidth"
   [boardHeight]="boardHeight"
   (redEmit)=saveRed($event)
-  (greenEmit)=saveGreen($event)>
+  (greenEmit)=saveGreen($event)
+  (reset)="clear()">
 </floor-component>
